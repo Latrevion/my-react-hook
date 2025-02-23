@@ -13,6 +13,6 @@ const MouseTracker = () => {
     }
   });
 
-  return <p></p>;
+  return <p>x:{positions.x},y:{positions.y}</p>;
 };
 export default MouseTracker;
