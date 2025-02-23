@@ -3,11 +3,26 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import LikeButton from './components/LikeButton'
-import MouseTracker from './components/MouseTracker'
+// import MouseTracker from './components/MouseTracker'
 import DogShow from './components/DogShow'
+import useMousePosition  from './hooks/useMousePostion'
+import useUrlLoader from './hooks/useUrlLoader'
+
+const style = {
+  width:200
+}
+const DogShowWithHook = ()=>{
+  const [data,loading] = useUrlLoader('https://dog.ceo/api/breeds/image/random')
+  return (
+    <>
+    {loading?<p>Loading...</p>: <img src={data &&data.message} alt='dog' style={{width: 200}} />}
+    {/* <button onClick={()=>{setFetch(!fetch)}}>see next img</button> */}
+        </>
+  )
+}
 function App() {
   const [count, setCount] = useState(0)
-
+  const positions = useMousePosition()
   return (
     <>
       <div>
@@ -19,8 +34,11 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <DogShow></DogShow>
-      <MouseTracker></MouseTracker>
+      <h1>{positions.x  } </h1>
+      <h1>{positions.y}</h1>
+      <DogShowWithHook></DogShowWithHook>
+      {/* <DogShow></DogShow> */}
+      {/* <MouseTracker></MouseTracker> */}
       <LikeButton></LikeButton>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
